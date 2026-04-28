@@ -4,16 +4,30 @@ import React, { useState, useCallback } from "react";
 import Header from "@/components/Header";
 import SwapInput from "@/components/SwapInput";
 import ReviewPanel from "@/components/ReviewPanel";
+import RiskFlags from "@/components/RiskFlags";
 import RouteDisplay from "@/components/RouteDisplay";
+import ApprovalBrief from "@/components/ApprovalBrief";
 import LoadingState from "@/components/LoadingState";
 import { TOKEN_METADATA } from "@/lib/constants";
 import { toRawAmount, fromRawAmount, formatAmount } from "@/lib/jupiter";
 import { getTokenInfo } from "@/lib/tokens";
-import type { AppState, QuoteResponse, ReviewData, TokenInfo, AppError } from "@/lib/types";
+import { analyzeRisks } from "@/lib/risks";
+import { generateBrief } from "@/lib/brief";
+import type {
+  AppState,
+  QuoteResponse,
+  ReviewData,
+  TokenInfo,
+  AppError,
+  RiskAssessment,
+  ApprovalBrief as ApprovalBriefType,
+} from "@/lib/types";
 
 export default function Home() {
   const [appState, setAppState] = useState<AppState>("idle");
   const [reviewData, setReviewData] = useState<ReviewData | null>(null);
+  const [riskAssessment, setRiskAssessment] = useState<RiskAssessment | null>(null);
+  const [approvalBrief, setApprovalBrief] = useState<ApprovalBriefType | null>(null);
   const [error, setError] = useState<AppError | null>(null);
 
   const handleReview = useCallback(
@@ -26,6 +40,8 @@ export default function Home() {
       setAppState("loading");
       setError(null);
       setReviewData(null);
+      setRiskAssessment(null);
+      setApprovalBrief(null);
 
       try {
         // 1. Resolve token metadata
@@ -84,7 +100,7 @@ export default function Home() {
         const routeComplexity =
           hops === 1 ? "simple" : hops <= 3 ? "multi-hop" : "complex";
 
-        const reviewData: ReviewData = {
+        const data: ReviewData = {
           quote,
           inputToken,
           outputToken,
@@ -97,7 +113,15 @@ export default function Home() {
           hops,
         };
 
-        setReviewData(reviewData);
+        // 5. Run risk analysis
+        const risks = analyzeRisks(data);
+
+        // 6. Generate approval brief
+        const brief = generateBrief(data, risks);
+
+        setReviewData(data);
+        setRiskAssessment(risks);
+        setApprovalBrief(brief);
         setAppState("review");
       } catch (err) {
         console.error("Review error:", err);
@@ -116,6 +140,8 @@ export default function Home() {
   const handleReset = useCallback(() => {
     setAppState("idle");
     setReviewData(null);
+    setRiskAssessment(null);
+    setApprovalBrief(null);
     setError(null);
   }, []);
 
@@ -205,12 +231,20 @@ export default function Home() {
         {/* Review Results */}
         {appState === "review" && reviewData && (
           <>
-            <ReviewPanel data={reviewData} />
+            <ReviewPanel
+              data={reviewData}
+              overallRisk={riskAssessment?.overallRisk}
+            />
+
+            {riskAssessment && <RiskFlags assessment={riskAssessment} />}
+
             <RouteDisplay data={reviewData} />
+
+            {approvalBrief && <ApprovalBrief brief={approvalBrief} />}
 
             {/* Reset button */}
             <div
-              className="animate-fade-in-up animate-delay-3"
+              className="animate-fade-in-up animate-delay-4"
               style={{
                 textAlign: "center",
                 marginTop: "24px",

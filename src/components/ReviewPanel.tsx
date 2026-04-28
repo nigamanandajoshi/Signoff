@@ -1,14 +1,15 @@
 "use client";
 
 import React from "react";
-import { ReviewData } from "@/lib/types";
+import { ReviewData, OverallRisk } from "@/lib/types";
 import TokenBadge from "./TokenBadge";
 
 interface ReviewPanelProps {
   data: ReviewData;
+  overallRisk?: OverallRisk;
 }
 
-export default function ReviewPanel({ data }: ReviewPanelProps) {
+export default function ReviewPanel({ data, overallRisk }: ReviewPanelProps) {
   const {
     inputToken,
     outputToken,
@@ -30,6 +31,7 @@ export default function ReviewPanel({ data }: ReviewPanelProps) {
         maxWidth: "560px",
         width: "100%",
         margin: "24px auto 0",
+        position: "relative",
       }}
     >
       {/* ─── Token Flow Header ─── */}
@@ -88,6 +90,19 @@ export default function ReviewPanel({ data }: ReviewPanelProps) {
             {formattedOutAmount}
           </span>
         </div>
+
+        {/* Risk Badge */}
+        {overallRisk && (
+          <div
+            style={{
+              position: "absolute",
+              top: "12px",
+              right: "16px",
+            }}
+          >
+            <RiskBadge risk={overallRisk} />
+          </div>
+        )}
       </div>
 
       {/* ─── Exchange Rate ─── */}
@@ -238,6 +253,39 @@ function DetailRow({
         </span>
         {badge}
       </div>
+    </div>
+  );
+}
+
+// ─── Risk Badge ───
+
+function RiskBadge({ risk }: { risk: OverallRisk }) {
+  const config = {
+    low: { bg: "rgba(52, 211, 153, 0.1)", border: "rgba(52, 211, 153, 0.25)", text: "#34d399", icon: "🛡", label: "LOW" },
+    medium: { bg: "rgba(251, 191, 36, 0.1)", border: "rgba(251, 191, 36, 0.25)", text: "#fbbf24", icon: "⚠", label: "MED" },
+    high: { bg: "rgba(248, 113, 113, 0.1)", border: "rgba(248, 113, 113, 0.25)", text: "#f87171", icon: "🚨", label: "HIGH" },
+  };
+
+  const c = config[risk];
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "4px",
+        padding: "4px 10px",
+        borderRadius: "20px",
+        background: c.bg,
+        border: `1px solid ${c.border}`,
+        fontSize: "10px",
+        fontWeight: 700,
+        color: c.text,
+        letterSpacing: "0.06em",
+      }}
+    >
+      <span style={{ fontSize: "12px" }}>{c.icon}</span>
+      {c.label}
     </div>
   );
 }

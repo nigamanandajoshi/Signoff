@@ -78,3 +78,47 @@ export interface AppError {
   message: string;
   details?: string;
 }
+
+// ─── Risk Types ───
+
+export type RiskSeverity = "info" | "warning" | "critical";
+export type RiskCategory =
+  | "token"
+  | "slippage"
+  | "price_impact"
+  | "route"
+  | "value"
+  | "depeg";
+
+export interface RiskFlag {
+  severity: RiskSeverity;
+  title: string;
+  description: string;
+  category: RiskCategory;
+  icon: string;
+}
+
+export type OverallRisk = "low" | "medium" | "high";
+
+export interface RiskAssessment {
+  flags: RiskFlag[];
+  overallRisk: OverallRisk;
+  riskScore: number; // 0-100
+}
+
+// ─── Approval Brief Types ───
+
+export interface BriefDetail {
+  label: string;
+  value: string;
+}
+
+export interface ApprovalBrief {
+  summary: string;
+  details: BriefDetail[];
+  routeExplanation: string;
+  warnings: string[];
+  verdict: string;
+  verdictSeverity: OverallRisk;
+  timestamp: string;
+}
