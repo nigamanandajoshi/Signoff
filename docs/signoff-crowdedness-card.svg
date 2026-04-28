@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Signoff Colosseum Crowdedness Snapshot</title>
+  <desc id="desc">Crowdedness snapshot for Signoff based on internal Colosseum Copilot analysis files and idea context.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07111f"/>
+      <stop offset="100%" stop-color="#0e2237"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#102a43"/>
+      <stop offset="100%" stop-color="#163b5e"/>
+    </linearGradient>
+    <style>
+      .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .title { font-size: 54px; font-weight: 700; fill: #f8fbff; }
+      .subtitle { font-size: 24px; fill: #b7c8d9; }
+      .label { font-size: 18px; font-weight: 600; fill: #9bb4c9; text-transform: uppercase; letter-spacing: 1.5px; }
+      .value { font-size: 38px; font-weight: 700; fill: #f8fbff; }
+      .small { font-size: 20px; fill: #d7e4ef; }
+      .foot { font-size: 18px; fill: #93aabd; }
+      .pillText { font-size: 22px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="48" y="48" width="1504" height="804" rx="28" fill="url(#panel)" stroke="#2f587c" stroke-width="2"/>
+
+  <text x="96" y="142" class="sans title">Signoff</text>
+  <text x="96" y="188" class="sans subtitle">Colosseum Crowdedness Snapshot</text>
+  <text x="96" y="226" class="mono foot">Generated from internal Colosseum Copilot analysis captured in .superstack/idea-context.md on 2026-04-21</text>
+
+  <rect x="96" y="274" width="260" height="76" rx="20" fill="#1b7f5c"/>
+  <text x="226" y="321" text-anchor="middle" class="sans pillText" fill="#effff7">MEDIUM CROWDEDNESS</text>
+
+  <rect x="380" y="274" width="190" height="76" rx="20" fill="#714f19"/>
+  <text x="475" y="321" text-anchor="middle" class="sans pillText" fill="#fff7e8">PARTIAL GAP</text>
+
+  <rect x="594" y="274" width="170" height="76" rx="20" fill="#224e96"/>
+  <text x="679" y="321" text-anchor="middle" class="sans pillText" fill="#eef5ff">NARROW-GO</text>
+
+  <rect x="96" y="392" width="430" height="180" rx="24" fill="#0c1c2c" stroke="#2b4f70" stroke-width="2"/>
+  <text x="126" y="436" class="sans label">Primary Wedge</text>
+  <text x="126" y="486" class="sans value">Treasury and</text>
+  <text x="126" y="532" class="sans value">multisig swap review</text>
+  <text x="126" y="562" class="sans small">Jupiter-first approval briefs before signing</text>
+
+  <rect x="554" y="392" width="430" height="180" rx="24" fill="#0c1c2c" stroke="#2b4f70" stroke-width="2"/>
+  <text x="584" y="436" class="sans label">Remaining Opportunity</text>
+  <text x="584" y="486" class="sans value">Workflow, segment,</text>
+  <text x="584" y="532" class="sans value">integration, distribution</text>
+  <text x="584" y="562" class="sans small">Not a generic wallet-safety play</text>
+
+  <rect x="1012" y="392" width="444" height="180" rx="24" fill="#0c1c2c" stroke="#2b4f70" stroke-width="2"/>
+  <text x="1042" y="436" class="sans label">Core Risk</text>
+  <text x="1042" y="486" class="sans value">Wallet previews and</text>
+  <text x="1042" y="532" class="sans value">warnings already exist</text>
+  <text x="1042" y="562" class="sans small">Differentiation must come from signer workflow</text>
+
+  <rect x="96" y="610" width="430" height="176" rx="24" fill="#0c1c2c" stroke="#2b4f70" stroke-width="2"/>
+  <text x="126" y="654" class="sans label">DEX and Trading Cluster</text>
+  <text x="126" y="712" class="mono value">323 projects</text>
+  <text x="126" y="756" class="mono small">23 winners in cluster</text>
+
+  <rect x="554" y="610" width="430" height="176" rx="24" fill="#0c1c2c" stroke="#2b4f70" stroke-width="2"/>
+  <text x="584" y="654" class="sans label">Data and Monitoring Cluster</text>
+  <text x="584" y="712" class="mono value">257 projects</text>
+  <text x="584" y="756" class="mono small">31 winners in cluster</text>
+
+  <rect x="1012" y="610" width="444" height="176" rx="24" fill="#0c1c2c" stroke="#2b4f70" stroke-width="2"/>
+  <text x="1042" y="654" class="sans label">Ecosystem Scale</text>
+  <text x="1042" y="712" class="mono value">5,428 projects</text>
+  <text x="1042" y="756" class="mono small">293 winners total</text>
+
+  <text x="96" y="830" class="mono foot">Sources: .superstack/idea-context.md, .superstack/copilot-signoff/search_main.json, .superstack/copilot-signoff/search_winners.json</text>
+</svg>
